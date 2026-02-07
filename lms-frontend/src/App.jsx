@@ -10,6 +10,7 @@ const Book = ({title, author, isbn, status}) => {
 
 const App = () => {
     const [count, setCount] = useState(0)
+    const [nameFilter, setNameFilter] = useState('')
 
     let books = [
 
@@ -32,15 +33,34 @@ const App = () => {
 	    status: 'checked out'
 	},
     ]
+
+    const filterByName = (event) => {
+	event.preventDefault()
+    }
+    
+    const handleNameFilter = (event) => {
+	setNameFilter(event.target.value)
+    }
+    
   return (
-    <>
-	<div>
-	    Hello World
-	    {books.map((book) => (
-			<li key={book.isbn}>
-	    <strong>{book.name}</strong>, by <em>{book.author}</em>. ISBN: {book.isbn} {book.status}
-	</li>	    ))}
-      </div>
+      <>
+	  <div>
+	      <h1>American Spaces Library</h1>
+	      <form onSubmit={filterByName}>
+		  search for title: <input value={nameFilter}
+					   onChange={handleNameFilter}/>
+	      </form>
+	  </div>
+	    <div>
+		{books.map((book) => (		    
+		    <li key={book.isbn}>
+			<button>Check in/out</button>
+			    <strong>{book.name}</strong>
+			    , by <em>{book.author}</em>.
+			    ISBN: {book.isbn} {book.status} 
+			</li>
+	    ))}
+		</div>
     </>
   )
 }
